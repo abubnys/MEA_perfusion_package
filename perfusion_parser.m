@@ -33,15 +33,15 @@
 
 % specify the paths for inputs and outputs:
 % location of the .txt data
-fpath = '/users/abubnys/Desktop/Pfaff_Lab/perfusion/bicuculline/eMNs/MEA4(9-25-18)/d9/';
+fpath = '/users/abubnys/Desktop/';
 % names of the .txt files
-fnoms = {'bic_perfusion','bic_perfusion0001'};
+fnoms = {'cnqx_perfusion','cnqx_perfusion0001'};
 % location to put outputs
 outpt_path = '/users/abubnys/Desktop/';
 % names of the parsed data files
-onoms = {'bic1','bic2'};
+onoms = {'cnqx1','cnqx2'};
 % name of the merged data file
-merge_nom = 'bic_perfusion';
+merge_nom = 'cnqx_perfusion';
 
 % generate full paths for parsed .txt files
 input_noms = cell(1,length(fnoms));
