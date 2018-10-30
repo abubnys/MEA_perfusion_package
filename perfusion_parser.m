@@ -42,6 +42,8 @@ outpt_path = '/users/abubnys/Desktop/';
 onoms = {'cnqx1','cnqx2'};
 % name of the merged data file
 merge_nom = 'cnqx_perfusion';
+% name of final output file
+output_name = [outpt_path 'cnqx_spikes'];
 
 % generate full paths for parsed .txt files
 input_noms = cell(1,length(fnoms));
@@ -58,7 +60,8 @@ end
 merge_imported_data(input_noms,[outpt_path merge_nom])
 %%
 % detect spikes
-[electrode_traces,x_time] = detect_spike_rates([outpt_path merge_nom]);
+load([outpt_path merge_nom])
+[electrode_traces,x_time] = detect_spike_rates(electrode_traces);
 save(output_name,'electrode_traces','x_time','-v7.3')
 
 

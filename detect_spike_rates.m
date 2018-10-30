@@ -7,9 +7,7 @@
 %   threshold, and then calculates the instantaneous spike rate across the
 %   recording for each electrode
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function electrode_traces = detect_spike_rates(merged_data)
-%merged_data = '/users/abubnys/Desktop/d10_acsf_final';
-load(merged_data)
+%function [electrode_traces, x_time] = detect_spike_rates(electrode_traces)
 
 all_time = 0:1/20000:500;
 x_time = all_time(1:length(electrode_traces(1).data));
@@ -24,8 +22,9 @@ fn_indx3 = find(x_time == 360);
 st_indx4 = find(x_time == 360);
 fn_indx4 = find(x_time == 479);
 
-
-for n = 1:length(electrode_traces)
+%%
+%for n = 1:length(electrode_traces)
+for n = 2
     
     trc = electrode_traces(n).data;
     
@@ -181,6 +180,7 @@ for n = 1:length(electrode_traces)
                     wavelet_times = [wavelet_times; w_time];
                 end
             end
+            
             % find spikes according to whether they intersect with threshold vectors
             all_cell_spike_amp = {};
             all_cell_spike_times = {};
@@ -192,43 +192,57 @@ for n = 1:length(electrode_traces)
                 s = 0;
                 
                 for w = 1:size(wavelets,2)
+                        
                     wvlt = wavelets(:,w);
                     w_time = wavelet_times(w,:);
                     xW1 = [];
                     xW2 = [];
                     
-                    % find the segment of the wavelet closest to threshold
-                    for d = 1:19
-                        if d >= up_thresh(1) && d+1 <= low_thresh(1)
-                            xW1 = d;
-                            xW2 = d+1;
-                        end
-                    end
-                    
-                    % calculate slope and intersect for wavelet
-                    yW1 = wvlt(xW1);
-                    yW2 = wvlt(xW2);
-                    mW = (yW2-yW1)/(xW2-xW1);
-                    bW = yW1-(mW*xW1);
-                    
-                    % calculate slope and intersect for threshold
-                    xT1 = up_thresh(1);
-                    xT2 = low_thresh(1);
-                    yT1 = up_thresh(2);
-                    yT2 = low_thresh(2);
-                    mT = (yT2-yT1)/(xT2-xT1);
-                    bT = yT1-(mT*xT1);
-                    
-                    % intersect between wavelet and threshold, but not if lines
-                    % are parallel
-                    if mW ~= mT
-                        x_int = (bT-bW)/(mW-mT);
-                        y_int = (mT*x_int)+bT;
-                        % if the intersect falls on threshold line, register it
-                        if x_int >= up_thresh(1) && x_int <= low_thresh(1) && y_int <= up_thresh(2) && y_int >= low_thresh(2)
+                    % for a threshold that is a vertical line, just
+                    % determine if the wavelet's y coord at threshold's x
+                    % value is within range
+                    if up_thresh(1) == low_thresh(1)
+                        if wvlt(up_thresh(1)) <= up_thresh(2) && wvlt(up_thresh(1)) >= low_thresh(2)
                             spike_amp = [spike_amp min(wvlt)];
                             spike_time = [spike_time w_time(find(wvlt == min(wvlt)))];
                             s = s+1;
+                        end
+                    % otherwise, find out if the wavelet intersects with
+                    % the threshold line
+                    else
+                        % find the segment of the wavelet closest to threshold
+                        for d = 1:19
+                            if d >= up_thresh(1) && d+1 <= low_thresh(1)
+                                xW1 = d;
+                                xW2 = d+1;
+                            end
+                        end
+                        
+                        % calculate slope and intersect for wavelet
+                        yW1 = wvlt(xW1);
+                        yW2 = wvlt(xW2);
+                        mW = (yW2-yW1)/(xW2-xW1);
+                        bW = yW1-(mW*xW1);
+                        
+                        % calculate slope and intersect for threshold
+                        xT1 = up_thresh(1);
+                        xT2 = low_thresh(1);
+                        yT1 = up_thresh(2);
+                        yT2 = low_thresh(2);
+                        mT = (yT2-yT1)/(xT2-xT1);
+                        bT = yT1-(mT*xT1);
+                        
+                        % intersect between wavelet and threshold, but not if lines
+                        % are parallel
+                        if mW ~= mT
+                            x_int = (bT-bW)/(mW-mT);
+                            y_int = (mT*x_int)+bT;
+                            % if the intersect falls on threshold line, register it
+                            if x_int >= up_thresh(1) && x_int <= low_thresh(1) && y_int <= up_thresh(2) && y_int >= low_thresh(2)
+                                spike_amp = [spike_amp min(wvlt)];
+                                spike_time = [spike_time w_time(find(wvlt == min(wvlt)))];
+                                s = s+1;
+                            end
                         end
                     end
                 end
@@ -324,7 +338,8 @@ for n = 1:length(electrode_traces)
         
         electrode_traces(n).spike_rates = rates;
     end
+    pause
     close all
 end
 
-end
+%end
