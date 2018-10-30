@@ -18,10 +18,17 @@ outpt_path = '/users/abubnys/Desktop/'; % location to put outputs
 
 ### The output
 
-the result output structure, electrode_traces contains the following fields:
-1. electrode: the name of the electrode
-2. data: raw data from that electrode
-3. spike times: time (s) when each detected spike happened, this will be a double if only one neuron was detected on the traces, or a cell array with the number of cells equal to the number of neurons detected in the recording
-4. spike amplitudes: maximum amplitude (uV) of each spike, organized in the same manner as spike times
-5. spk_thresh: threshold for spike detection. If only one neuron was detected this is a single value and all periods during which the raw trace dropped below this value count as a spike. If multiple neurons were detected, this is an n-by-4 vector in which each row corresponds to the set of thresholds for a given neuron. Columns 1 and 2 are the x and y values for the upper threshold, and columnes 3 and 4 are the x and y values for the lower threshold. A spike for a given neuron is registered if the raw trace intersects with the line defined by these two coordinates.
-6. spike rates: the binned spike rate (Hz) for each recorded neuron. Each bin corresponds to the instantaneous spike rate over 100 ms. 
+output structure, `electrode_traces` contains the following fields:
+1. `electrode`: the name of the electrode
+2. `data`: raw data from that electrode
+3. `spike times`: time (s) when each detected spike happened, this will be a double if only one neuron was detected on the traces, or a cell array with the number of cells equal to the number of neurons detected in the recording
+4. `spike amplitudes`: maximum amplitude (uV) of each spike, organized in the same manner as spike times
+5. `spk_thresh`: threshold for spike detection. If only one neuron was detected this is a single value and all periods during which the raw trace dropped below this value count as a spike. If multiple neurons were detected, this is an n-by-4 vector in which each row corresponds to the set of thresholds for a given neuron. Columns 1 and 2 are the x and y values for the upper threshold, and columnes 3 and 4 are the x and y values for the lower threshold. A spike for a given neuron is registered if the raw trace intersects with the line defined by these two coordinates.
+6. `spike rates`: the binned spike rate (Hz) for each recorded neuron. Each bin corresponds to the instantaneous spike rate over 100 ms. 
+
+### User inputs
+
+`detect_spike_rates` prompts the user to input decisions and information about spike thresholds at various points throughout the run. This function will iterate through the data for each electrode and determine spike rates from there. A more detailed description of these prompts follows:
+
+First, it will take the 480s of raw data for that electrode and plot it across 4 rows of a figure:
+
