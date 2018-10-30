@@ -32,7 +32,7 @@ output structure, `electrode_traces` contains the following fields:
 
 First, it will take the 480s of raw data for that electrode and plot it across 4 rows of a figure:
 
-![example of raw electrode data](https://github.com/abubnys/MEA_perfusion_package/blob/master/markdown_figures/e52.tif)
+![example of raw electrode data](/e52.png)
 
 
       
