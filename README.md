@@ -34,5 +34,24 @@ First, it will take the 480s of raw data for that electrode and plot it across 4
 
 ![example of raw electrode data](/e52.png)
 
+The program them prompts the user to identify whether the given raw data contains any spiking activity
+```
+spiking? (y=1)
+```
+If there is no apparent activity on this recording, the user selects option 0 and the program continues on to the next recording. However, in this case we observe that there is spiking activity happening in the recording, so we select option 1. 
+```
+spiking? (y=1) 1
+```
+
+The program then prompts the user to identify a period within the recording in which said activity is happening.
+```
+pick a spiking period
+```
+Because the full recording is so long and therefore the individual spikes may be difficult to distinguish, this allows the program to zoom into a selected 10 second window of representative activity. Here we selected 160s as the start of the representative activity period. So, the program generates a new figure which just shows this time window.
+```
+pick a spiking period 160
+```
+
+![10 second spiking period](/e52_pre_threshold.png)
 
       
