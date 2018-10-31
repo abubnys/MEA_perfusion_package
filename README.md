@@ -78,3 +78,55 @@ Thus, we select option 0 and the program continues with the analysis to generate
 
 ### An example with multiple neurons
       
+Sometimes, an extracellular electrode can pick up signal from multiple nearby neurons. Since signal amplitude is related to distance from the electrode, usually this is quite apparent as some spikes as consistently smaller than others.
+
+![a trace with 2 neurons](/e78.png)
+
+![closeup of trace](/e78_thresh.png)
+
+We select a threshold of -15 to include both the small and the large spikes. And now the waveforms look like this.
+
+![waveforms](/wavelets.png)
+
+Unlike in the previous case, there now appear to be two types of waveforms. A low amplitude waveform, which includes many more spikes, and a high amplitude waveform, which has a smaller membership.
+```
+multiple neurons? (y=1,n=0)
+```
+This time, we select option 1 since we need to separate the spikes that are coming from the two different neurons. The program deals with this issue by setting up positive and negative thresholds within the spike waveforms such that only waveforms that cross the line defined by these thresholds are registered to a given neuron. 
+```
+select upper threshold, then return
+```
+First, we would like to separate the large amplitude spikes. So, we bring the data cursor over the waveform plot and select the upper bound for this group.
+
+![threshold 1](/wavelets_t1.png)
+
+```
+select lower threshold, then return
+```
+Now, we do the same for the lower threshold.
+
+![threshold 2](/wavelets_t2.png)
+
+After we press return on the second threshold, the program draws the threshold line we have created and colors all of the waveforms that cross that threshold and are therefore registered to that neuron. 
+
+![cell 1](/wavelets_cell1.png)
+
+```
+good threshold? (y=1,n=0)
+```
+The user now has the option to reset these thresholds if they are unhappy with the outcome. However, we will leave them as they are by selecting option 1.
+```
+find another cell? (y=1, n=0)
+```
+Now, we have the option of setting the thresholds for a second neuron. So, we select option 1 and repeat the same process of selecting upper and lower thresholds for the second "low amplitude" neuron. The waveforms registered to cell 2 are colored in green.
+
+![cell 2](/wavelets_cell2.png)
+
+```
+find another cell? (y=1, n=0)
+```
+There are only two neurons recorded by this electrode, so we select option 0. Now the program does some crunching and comes up with the final output:
+
+![output for 2 neurons](/e78_final.png)
+
+The setup is the same as in the first example, but now the raster plot and spike rate plot show spikes registered to two different neurons.
