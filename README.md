@@ -39,19 +39,42 @@ The program them prompts the user to identify whether the given raw data contain
 spiking? (y=1)
 ```
 If there is no apparent activity on this recording, the user selects option 0 and the program continues on to the next recording. However, in this case we observe that there is spiking activity happening in the recording, so we select option 1. 
-```
-spiking? (y=1) 1
-```
 
 The program then prompts the user to identify a period within the recording in which said activity is happening.
 ```
 pick a spiking period
 ```
 Because the full recording is so long and therefore the individual spikes may be difficult to distinguish, this allows the program to zoom into a selected 10 second window of representative activity. Here we selected 160s as the start of the representative activity period. So, the program generates a new figure which just shows this time window.
-```
-pick a spiking period 160
-```
 
-![10 second spiking period](/e52_pre_threshold.png)
 
+![10 second spiking period](/e52_pre_thresh.png)
+
+Now, the program prompts the user to select a threshold for spikes. This is a simple threshold, so all periods when the recording drops below this number will be counted as spikes.
+```
+threshold? 
+```
+We set the threshold to -16 in order to capture the spikes without picking up too much noise.
+
+Now, the program draws a red line where the threshold has been set and prompts the user to say whether this is a suitable threshold.
+
+![simple threshold](/e52_thresh.png)
+
+```
+good threshold? (y=1)
+```
+We are happy with the current threshold, so we selection option 1. However, if the initial threshold setting is too high or too low, you can select option 0 and the program will prompt the user to select a new threshold as before and the process will continue ad inifintum until a suitable threshold is selected.
+
+Now the program takes the spikes it detected within that 10 second time window with the given threshold and plots all of their waveforms in an overlay.
+
+![wavelets](/e52_wavelet.png)
+
+All of the wavelets converge on a single curve in this case, so the spiking activity in this recording is only coming from a single neuron somewhere in the vicinity.
+```
+multiple neurons? (y=1, n=0)
+```
+Thus, we select option 0 and the program continues with the analysis to generate a final figure which includes the raw data plot, a raster plot of identified spikes, and a plot of the binned spike rate (calculated from 100ms bins).
+
+![final output](/e52_final.png)
+
+### An example with multiple neurons
       
