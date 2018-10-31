@@ -120,7 +120,7 @@ for n = 2
                 up_thresh = c_info.Position;
                 dcm_obj.removeAllDataCursors()
                 
-                disp('selec lower threshold, then return')
+                disp('select lower threshold, then return')
                 % Wait while the user does this.
                 pause
                 c_info = getCursorInfo(dcm_obj);
