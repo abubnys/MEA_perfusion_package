@@ -143,7 +143,7 @@ The raw spike rates are calculated over 100ms intervals, a plot of these rates r
 
 ![raw spike rates](/raw_spk_rate.png)
 
-Smoothing the data with a spline function improves this outcome somewhat, but does aa poor job of showing the underlying long term trends of the experiment
+Smoothing the data with a spline function improves this outcome somewhat, but does a poor job of showing the underlying long term trends of the experiment
 
 ![smoothed rates](/smoothed_spk_rates.png)
 
