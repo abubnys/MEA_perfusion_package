@@ -145,7 +145,7 @@ The raw spike rates are calculated over 100ms intervals, a plot of these rates r
 
 Smoothing the data with a spline function improves this outcome somewhat, but does aa poor job of showing the underlying long term trends of the experiment
 
-![smoothed rates](/smoothed_spike_rates.png)
+![smoothed rates](/smoothed_spk_rates.png)
 
 Binning the data again into 10s long bins makes it easier to see long term changes in spike rate over the 8 minute long experiment
 
