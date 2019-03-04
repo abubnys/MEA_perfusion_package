@@ -155,4 +155,4 @@ Now the decrease in spike rate that starts 2 minutes into the recording is more 
 
 ![normalized rates](/norm_spk_rates.png)
 
-It's now much easier to see that all 3 cells have a decrease in spike rate following infusion of the drug at the 2 minute mark.
+It's now much easier to see that all 3 cells have a decrease in spike rate following infusion of the drug at the 2 minute mark (indicated by the black arrow)
