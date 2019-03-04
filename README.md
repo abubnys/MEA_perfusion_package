@@ -139,4 +139,20 @@ The additional script `rate_smooth_and_norm` takes the 100ms binned spike rates 
 ```
 load([fpath 'SampleData_spikes.mat'])
 ```
+The raw spike rates are calculated over 100ms intervals, a plot of these rates reveals that they are very noisy
 
+![raw spike rates](/raw_spk_rate.png)
+
+Smoothing the data with a spline function improves this outcome somewhat, but does aa poor job of showing the underlying long term trends of the experiment
+
+![smoothed rates](/smoothed_spike_rates.png)
+
+Binning the data again into 10s long bins makes it easier to see long term changes in spike rate over the 8 minute long experiment
+
+![binned rates](/binned_spk_rates.png)
+
+Now the decrease in spike rate that starts 2 minutes into the recording is more apparent. However, since each cell has a different initial spike rate, a direct comparison between them is difficult. We are interested in the change in relative activity of each cell over the course of the experiment as the drug is washed in, so we normalize the spike rate of each cell to its mean spike rate for the first 100s of recording before the drug has been applied (the first 10 bins of the binned data).
+
+![normalized rates](/norm_spk_rates.png)
+
+It's now much easier to see that all 3 cells have a decrease in spike rate following infusion of the drug at the 2 minute mark.
